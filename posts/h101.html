@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackerone H101 Android Challenges Walkthrough | Akshansh Jaiswal</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="icon" href="../assets/images/dp.jpeg">
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Akshansh Jaiswal</div>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../posts.html">Blog</a></li>
+        <li><a href="../contributions.html">Contributions</a></li>
+        <li><a href="../assets/resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="../community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="blog-post">
+    <h1>Hackerone H101 Android Challenges Walkthrough</h1>
+    <p><em>June 13, 2020</em></p>
+    
+    <p>I have recently completed the H101 CTF Android challenges. It was really fun learning and completing the challenges, so here's the writeup.</p>
+
+    <h2>1) H1 Thermostat</h2>
+    <p>The first challenge is in the easy category which was basically about intercepting traffic and reading source code in the APK.</p>
+    
+    <p>In this case, we decompile the APK and inspect it. After analyzing the files, you can see a Java class named <code>com.hacker101.level11.PayloadRequest</code>.</p>
+
+    <img src="../assets/images/thermo.jpg" alt="H1 Thermostat Challenge Screenshot">
+    
+    <p>Once we open it, we can see flag 0 and flag 1. But for flag 0, there was one more way around - if you had intercepted the traffic for the application, then you would have found the header as flag too:</p>
+    
+    <pre><code>X-Flag: ^FLAG^flag$FLAG$</code></pre>
+    
+    <p>Also in the source code, we can see that flag 1 is MD5 hashed and then sent to the server, so the only way was through reading the source code.</p>
+
+    <h2>2) Intentional Exercise</h2>
+    <p>The exercise was in the moderate category where the goal of the challenge was to get a single flag by generating a correct hash for the request.</p>
+    
+    <p>Once we open the app, we can see a request going to the server like:</p>
+    
+    <pre><code>http://URL/appRoot?&hash=61f4518d844a9bd27bb971e55a23cd6cf3a9f5ef7f46285461cf6cf135918a1a</code></pre>
+    
+    <p>This displays a link <code>/appRoot/flagBearer</code>. The important clues we get are from inspection of the Java class - we can see that the URL is first taken, checked for <code>?</code>, then using the secret key a hash is generated of type SHA-256. But in the first request we can see that <code>hash=61....</code> is SHA-256 of the key itself, so that won't work.</p>
+      
+    <img src="../assets/images/intentional.jpg" alt="Intentional Exercise MainActivity Code">
+    
+    <p>So we also got our second request which was having a path <code>/flagBearer</code>.</p>
+    
+    <p>Combining the two things, I tried doing SHA-256 by <code>(key/flagBearer)</code> which gave a hash:</p>
+    
+    <pre><code>8743a18df6861ced0b7d472b34278dc29abba81b3fa4cf836013426d6256bd5e</code></pre>
+    
+    <p>So I made a final request which looked like:</p>
+    
+    <pre><code>http://URL/appRoot/flagBearer?&hash=8743a18df6861ced0b7d472b34278dc29abba81b3fa4cf836013426d6256bd5e</code></pre>
+    
+    <p>Sending it to the server gave me the flag: <code>^FLAG^flag$FLAG$</code></p>
+
+    <h2>3) Oauthbreaker</h2>
+    <p>This was a moderate challenge containing two flags. When we open the app, we can see the request containing:</p>
+
+    <img src="../assets/images/oauth.jpg" alt="OAuth Challenge Request Analysis">
+    
+    <pre><code>/oauth?redirect_url=oauth%3A%2F%2Ffinal%2Flogin&response_type=token&scope=all</code></pre>
+    
+    <p>Inspecting the MainActivity class, we can see that <code>redirect_uri</code> is by default given the value of <code>oauth://final/</code> which redirects it to the app with an authed request. So if we remove the <code>redirect_uri</code> parameter (i.e., sending blank values in it):</p>
+    
+    <pre><code>http://url/oauth?redirect_url=&response_type=token&scope=all</code></pre>
+    
+    <p>We get our first flag in response.</p>
+
+    <img src="../assets/images/oauthflag1.jpg" alt="OAuth First Flag Response">
+    
+    <p>For the second flag, we need to look at our WebAppInterface. Here we have a Java class which is not used anywhere, so I took the file and compiled it by adding few variables and executed it.</p>
+    
+    <img src="../assets/images/code.jpg" alt="WebAppInterface Code Implementation">
+    
+    <p>This gave me <code>48ce----.html</code></p>
+    
+    <p>Now when we add this URL to our previous <code>redirect_uri</code>, we get our second flag: <code>^FLAG^flag$FLAG$</code></p>
+
+    <h2>4) Mobile Webdev</h2>
+    <p>This was the most awesome challenge which helped me to clear some of my doubts and learn good techniques on HMAC and zip files. The challenge was more a web category and some cryptography.</p>
+    
+    <p>As we open the application, we can see it as a notesaver application where we can see the notes and edit them. As we analyze requests, we can see that these directories are used:</p>
+    
+    <ul>
+      <li><code>http://URL/content/</code> - would serve the content of notes</li>
+      <li><code>http://URL/edit.php?file=index.html</code> - would be used to edit the file</li>
+      <li><code>http://URL/save.php</code> - would take argument as <code>file=&data</code> to save the contents</li>
+      <li><code>http://URL/upload.php</code> - it was hidden in comments of edit.php, the feature was used to upload files</li>
+    </ul>
+    
+    <p>Among the four, all the functions were working normally except the upload function. Every time I tried uploading something, it gave me an error of HMAC missing.</p>
+    
+    <p>Upon analyzing the APK, we can see that we have an HMAC key but no implementation visible of how to send it in the request.</p>
+    
+    <img src="../assets/images/hmackey.jpg" alt="HMAC Key in APK Analysis">
+    
+    <p>To send any POST upload, the request would normally look like:</p>
+    
+    <pre><code>-----------------------------2220428816716698861687125981
+Content-Disposition: form-data; name="file"; filename="file.file"
+Content-Type: application/html
+
+-----------------------------2220428816716698861687125981
+Content-Disposition: form-data; name="something"
+
+value
+-----------------------------2220428816716698861687125981--</code></pre>
+    
+    <p>So we basically have to upload a file which was signed by our HMAC key. Also, we need to find the type of key that was used - in this case it was MD5. So concluding, we had to send our file and signature values signed with our keys. This can be done online as well as with our own script.</p>
+    
+    <p>The final request of upload looked like:</p>
+    
+    <pre><code>-----------------------------2220428816716698861687125981
+Content-Disposition: form-data; name="file"; filename="file.file"
+Content-Type: application/html
+
+-----------------------------2220428816716698861687125981
+Content-Disposition: form-data; name="hmac"
+
+signaturevalue
+-----------------------------2220428816716698861687125981--</code></pre>
+    
+    <p>Once we uploaded the flag, we got our first flag and the message.</p>
+
+    <img src="../assets/images/up.jpg" alt="File Upload Success Message">
+    
+    <p>This was our hint for the second level that files are uploaded in temp directory and we have to move to content folder. Basically it indicated a popular flaw of zip traversal:</p>
+    
+    <p>If zip files are not properly handled in extraction and compression, they may lead to directory traversal. So in this case, we can fetch our files and even get sensitive information.</p>
+    
+    <p>So I created a zip nested with zips (else you can use an online tool) such case of a zip-slip file which upon viewing should look like: <code>../../../../../../temp/test.zip</code></p>
+    
+    <p>Next, I signed this zip again and uploaded it which finally gave me the flag.</p>
+    
+    <img src="../assets/images/flag2.jpg" alt="Final Flag Achievement">
+    <h2>Conclusion</h2>
+    <p>Thanks for reading! If you have any doubts, feel free to connect with me.</p>
+
+    
+
+  </main>
+</body>
+</html>

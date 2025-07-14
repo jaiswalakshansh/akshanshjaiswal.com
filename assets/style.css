@@ -1,0 +1,281 @@
+a {
+  color: #00ffcc;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #00ffd5;
+  border-bottom: 1px solid #00ffd5;
+}
+
+
+.navbar {
+  background-color: #0c0c0c;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00ffcc;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+}
+
+.nav-links li a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: 0.2s ease;
+}
+
+.nav-links li a:hover {
+  border-bottom: 1px solid #00ffcc;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0f0f0f;
+  color: #f0f0f0;
+  line-height: 1.6;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #111;
+}
+
+.profile-pic {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00ff99;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+h2 {
+  font-weight: normal;
+  color: #ccc;
+  margin-top: 0.3rem;
+}
+
+.social-links {
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #00ffcc;
+  font-weight: bold;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  border-color: #00ffcc;
+}
+
+.bio {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.bio h3 {
+  font-size: 1.5rem;
+  color: #00ffcc;
+  margin-bottom: 1rem;
+}
+
+.bio p {
+  margin-bottom: 1rem;
+  color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  .social-links a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+
+.blog-listing {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.blog-listing h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #00ffcc;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 1rem;
+}
+
+.post-list span {
+  font-weight: bold;
+  color: #ccc;
+}
+
+.blog-post {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.blog-post h1 {
+  font-size: 2rem;
+  color: #00ffcc;
+}
+
+.blog-post pre {
+  background: #111;
+  padding: 1rem;
+  overflow-x: auto;
+  border-left: 3px solid #00ffcc;
+  color: #f0f0f0;
+}
+
+.blog-post img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  border: 2px solid #1e1e1e;
+  transition: border-color 0.2s ease;
+}
+
+.blog-post img:hover {
+  border-color: #00ffcc;
+}
+
+
+.contributions {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.project-card, .talk-card {
+  background-color: #121212;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: border-color 0.2s ease;
+}
+
+.project-card:hover, .talk-card:hover {
+  border-color: #00ffcc;
+}
+
+.project-card h2, .talk-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.project-card h2 a, .talk-card h2 a {
+  color: #00ffcc;
+  text-decoration: none;
+}
+
+.project-card h2 a:hover, .talk-card h2 a:hover {
+  color: #00ffd5;
+  border-bottom: 1px solid #00ffd5;
+}
+
+.project-card p, .talk-card p {
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+.community {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.community h1, .community h2 {
+  color: #00ffcc;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid #1e1e1e;
+  transition: transform 0.2s;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+  border-color: #00ffcc;
+}

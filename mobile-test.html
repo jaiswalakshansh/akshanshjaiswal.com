@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Navigation Test | Akshansh Jaiswal</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" href="assets/images/dp.jpeg" />
+  <style>
+    /* Force mobile view for testing */
+    @media screen and (min-width: 1px) {
+      .hamburger {
+        display: flex !important;
+      }
+      
+      .nav-links {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 100% !important;
+        height: 100vh !important;
+        background-color: rgba(12, 12, 12, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        transition: right 0.3s ease !important;
+        gap: 2rem !important;
+        z-index: 999 !important;
+      }
+      
+      .nav-links.active {
+        right: 0 !important;
+      }
+      
+      .nav-links li {
+        margin: 0 !important;
+        opacity: 0 !important;
+        transform: translateY(20px) !important;
+        transition: opacity 0.3s ease, transform 0.3s ease !important;
+      }
+      
+      .nav-links.active li {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      
+      .nav-links li a {
+        font-size: 1.4rem !important;
+        padding: 1.5rem 2rem !important;
+        display: block !important;
+        text-align: center !important;
+        color: #f0f0f0 !important;
+        border-bottom: 2px solid transparent !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Akshansh Jaiswal</div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+         <li><a href="index.html">Home</a></li>
+        <li><a href="posts.html">Blog</a></li>
+        <li><a href="contributions.html">Contributions</a></li>
+        <li><a href="assets/resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img src="assets/images/dp.jpeg" alt="Akshansh Jaiswal" class="profile-pic" />
+    <h1>Mobile Navigation Test</h1>
+    <h2>Click the hamburger menu (≡) in the top right to test mobile navigation</h2>
+    <div style="margin-top: 2rem; padding: 1rem; background: #222; border-radius: 8px;">
+      <h3 style="color: #00ffcc;">Test Instructions:</h3>
+      <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+        <li>Click the hamburger menu (three lines) in the top right</li>
+        <li>The menu should slide in from the right with a backdrop blur</li>
+        <li>Menu items should animate in with staggered delays</li>
+        <li>Click any menu item to close the menu</li>
+        <li>Click outside the menu to close it</li>
+        <li>Press Escape key to close the menu</li>
+      </ul>
+    </div>
+  </header>
+
+  <script src="assets/style.js"></script>
+</body>
+</html>

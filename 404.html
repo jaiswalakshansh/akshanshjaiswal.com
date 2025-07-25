@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 - Page Not Found | Akshansh Jaiswal</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="icon" href="assets/images/dp.jpeg">
+  <!-- Use root‑relative paths so assets load correctly from any path -->
+  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="icon" href="/assets/images/dp.jpeg" />
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">Akshansh Jaiswal</div>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="posts.html">Blog</a></li>
-        <li><a href="contributions.html">Contributions</a></li>
-        <li><a href="assets/resume.pdf" target="_blank">Resume</a></li>
-        <li><a href="community.html">Community</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/posts.html">Blog</a></li>
+        <li><a href="/contributions.html">Contributions</a></li>
+        <li><a href="/assets/resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="/community.html">Community</a></li>
       </ul>
     </div>
   </nav>
@@ -28,7 +29,8 @@
       <p style="color: #ddd; margin-bottom: 2rem;">
         The page you're looking for doesn't exist or has been moved.
       </p>
-      <a href="index.html" style="display: inline-block; padding: 0.8rem 2rem; background-color: #00ffcc; color: #0f0f0f; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.2s;">
+      <!-- Root‑relative link for “Go Home” -->
+      <a href="/" style="display: inline-block; padding: 0.8rem 2rem; background-color: #00ffcc; color: #0f0f0f; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.2s;">
         Go Home
       </a>
     </div>
